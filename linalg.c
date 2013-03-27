@@ -5,7 +5,9 @@
 #include <string.h>
 #include <math.h>
 
-#include "linalg.h"
+#include <linalg.h>
+
+#define PI 3.141592653589793
 
 Double4 *mm4mul(Mat4 a, Mat4 b, Mat4 m) {
    int i, j, h;
@@ -107,19 +109,19 @@ Double4 *m4rotate(Vec3 a, Mat4 m) {
 
    sxsy = sx * sy;
 
-   m[0][0] =  cy * cz;
-   m[1][0] =  cx * sz + sxsy * cz;
-   m[2][0] =  sx * sz - cx * sy * cz;
+   m[0][0] =  cy*cz;
+   m[1][0] =  cx*sz + sxsy*cz;
+   m[2][0] =  sx*sz - cx*sy * cz;
    m[3][0] =  0;
 
-   m[0][1] = -cy * sz;
-   m[1][1] =  cx * cz - sxsy * sz;
-   m[2][1] =  sx * cz + cx * sy * sz;
+   m[0][1] = -cy*sz;
+   m[1][1] =  cx*cz - sxsy*sz;
+   m[2][1] =  sx*cz + cx*sy*sz;
    m[3][1] =  0;
 
    m[0][2] =  sy;
-   m[1][2] = -sx * cy;
-   m[2][2] =  cx * cy;
+   m[1][2] = -sx*cy;
+   m[2][2] =  cx*cy;
    m[3][2] =  0;
 
    m[0][3] = 0;
@@ -130,7 +132,8 @@ Double4 *m4rotate(Vec3 a, Mat4 m) {
    return m;
 }
 
-Double4 *m4ortho(double left, double right, double bottom, double top, double near, double far, Mat4 m) {
+Double4 *m4ortho(double left, double right, double bottom,
+                 double top, double near, double far, Mat4 m) {
    Vec3 g;
    Mat4 a, b, c;
 
@@ -143,6 +146,23 @@ Double4 *m4ortho(double left, double right, double bottom, double top, double ne
           c);
 
    memcpy(m, c, sizeof(Mat4));
+
+   return m;
+}
+
+Double4 *m4perspective(double fov, double aspect, double near, double far, Mat4 m) {
+   double h, ndepth;
+
+   h = 1/tan(fov * (PI/360));
+   ndepth = near - far;
+
+   m4identity(m);
+
+   m[0][0] = h/aspect;
+   m[1][1] = h;
+   m[2][2] = (far + near)/ndepth;
+   m[2][3] = -1;
+   m[3][2] = 2*near*far/ndepth;
 
    return m;
 }
