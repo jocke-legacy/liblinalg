@@ -7,7 +7,7 @@
 
 #include "linalg.h"
 
-Float4 *mm4mul(Mat4 a, Mat4 b, Mat4 m) {
+Double4 *mm4mul(Mat4 a, Mat4 b, Mat4 m) {
    int i, j, h;
    Mat4 r;
 
@@ -25,7 +25,7 @@ Float4 *mm4mul(Mat4 a, Mat4 b, Mat4 m) {
    return m;
 }
 
-float *mv4mul(Mat4 m, Vec4 v) {
+double *mv4mul(Mat4 m, Vec4 v) {
    int i, j;
    Vec4 r;
 
@@ -41,9 +41,9 @@ float *mv4mul(Mat4 m, Vec4 v) {
    return v;
 }
 
-float vv4dot(Vec4 a, Vec4 b) {
+double vv4dot(Vec4 a, Vec4 b) {
    int i;
-   float r = 0;
+   double r = 0;
 
    for (i = 0; i < 4; i++) {
       r += a[i] * b[i];
@@ -52,9 +52,9 @@ float vv4dot(Vec4 a, Vec4 b) {
    return r;
 }
 
-float vv3dot(Vec3 a, Vec3 b) {
+double vv3dot(Vec3 a, Vec3 b) {
    int i;
-   float r = 0;
+   double r = 0;
 
    for (i = 0; i < 3; i++) {
       r += a[i] * b[i];
@@ -63,7 +63,7 @@ float vv3dot(Vec3 a, Vec3 b) {
    return r;
 }
 
-Float4 *m4identity(Mat4 m) {
+Double4 *m4identity(Mat4 m) {
    int i;
 
    memset(m, 0, sizeof(Mat4));
@@ -74,7 +74,7 @@ Float4 *m4identity(Mat4 m) {
    return m;
 }
 
-Float4 *m4translate(Vec3 v, Mat4 m) {
+Double4 *m4translate(Vec3 v, Mat4 m) {
    m4identity(m);
    m[3][0] = v[0];
    m[3][1] = v[1];
@@ -83,7 +83,7 @@ Float4 *m4translate(Vec3 v, Mat4 m) {
    return m;
 }
 
-Float4 *m4scale(Vec3 v, Mat4 m) {
+Double4 *m4scale(Vec3 v, Mat4 m) {
    m4identity(m);
    m[0][0] = v[0];
    m[1][1] = v[1];
@@ -92,10 +92,10 @@ Float4 *m4scale(Vec3 v, Mat4 m) {
    return m;
 }
 
-Float4 *m4rotate(Vec3 a, Mat4 m) {
-   float cx, cy, cz;
-   float sx, sy, sz;
-   float sxsy;
+Double4 *m4rotate(Vec3 a, Mat4 m) {
+   double cx, cy, cz;
+   double sx, sy, sz;
+   double sxsy;
 
    cx = cos(a[0]);
    cy = cos(a[1]);
@@ -130,7 +130,7 @@ Float4 *m4rotate(Vec3 a, Mat4 m) {
    return m;
 }
 
-Float4 *m4ortho(float left, float right, float bottom, float top, float near, float far, Mat4 m) {
+Double4 *m4ortho(double left, double right, double bottom, double top, double near, double far, Mat4 m) {
    Vec3 g;
    Mat4 a, b, c;
 
@@ -147,7 +147,7 @@ Float4 *m4ortho(float left, float right, float bottom, float top, float near, fl
    return m;
 }
 
-float *vec4(float x, float y, float z, float w, Vec4 v) {
+double *vec4(double x, double y, double z, double w, Vec4 v) {
    v[0] = x;
    v[1] = y;
    v[2] = z;
@@ -156,7 +156,7 @@ float *vec4(float x, float y, float z, float w, Vec4 v) {
    return v;
 }
 
-float *vec3(float x, float y, float z, Vec3 v) {
+double *vec3(double x, double y, double z, Vec3 v) {
    v[0] = x;
    v[1] = y;
    v[2] = z;
