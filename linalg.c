@@ -150,7 +150,8 @@ Double4 *m4ortho(double left, double right, double bottom,
    return m;
 }
 
-Double4 *m4perspective(double fov, double aspect, double near, double far, Mat4 m) {
+Double4 *m4perspective(double fov, double aspect, double near,
+                       double far, Mat4 m) {
    double h, ndepth;
 
    h = 1/tan(fov * (PI/360));
