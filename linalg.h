@@ -7,7 +7,8 @@ typedef double Mat4[4][4];
 typedef double Double4[4];
 
 Double4 *mm4mul(Mat4 a, Mat4 b, Mat4 r);
-double *mv4mul(Mat4 m, Vec4 v);
+double *mv4mul(Mat4 m, Vec4 v, Vec4 vr);
+Double4 *m4inv(Mat4 a, Mat4 m);
 double vv4dot(Vec4 a, Vec4 b);
 double vv3dot(Vec3 a, Vec3 b);
 Double4 *mm4identity(Mat4 m);
